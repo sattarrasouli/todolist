@@ -11,7 +11,7 @@ interface LoginFormData {
 }
 
 interface LoginResponse {
-    accessToken: string;
+    token: string;
 }
 
 function page() {
@@ -20,14 +20,14 @@ function page() {
     const [username, setUsername] = useState('atuny0');
     const [password, setPassword] = useState('9uQFF1Lh');
 
-    const mutation: UseMutationResult<LoginResponse, unknown, LoginFormData, unknown> = useMutation(
+    let mutation: UseMutationResult<LoginResponse, unknown, LoginFormData, unknown> = useMutation(
         'login',
         loginUser,
         {
             onSuccess: (data) => {
                 console.log('Login success:', data);
                 queryClient.invalidateQueries('userData');
-                router.push('/todoList');
+                router.push('/todolist');
             },
             onError: (error) => {
                 console.error('Login error:', error);
